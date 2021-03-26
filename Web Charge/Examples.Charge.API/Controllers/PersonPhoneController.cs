@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Examples.Charge.Application.Interfaces;
 using Examples.Charge.Domain.Aggregates.PersonAggregate;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Examples.Charge.API.Controllers
 {
@@ -16,7 +17,7 @@ namespace Examples.Charge.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult InsertPersonPhone(PersonPhone request)
+        public IActionResult InsertPersonPhone(PersonPhoneResponseDto request)
         {
             var response = _facadePhone.InsertPersonPhone(request);
 
@@ -24,25 +25,35 @@ namespace Examples.Charge.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdatePersonPhone([FromHeader] int personId, [FromHeader] int TypePhoneId, [FromHeader] string oldPhone, [FromHeader] string newPhoneNumber)
+        public IActionResult UpdatePersonPhone([FromBody]PersonPhoneResponseDto request, [FromQuery] string newPhoneNumber)
         {
-            var response = _facadePhone.UpdatePersonPhone(personId, TypePhoneId, oldPhone, newPhoneNumber);
+            var response = _facadePhone.UpdatePersonPhone(request, newPhoneNumber);
 
             return Response(response);
         }
 
         [HttpDelete]
-        public IActionResult DeletePersonPhone(int personId, int typePhoneId, string phoneNumber)
+        public IActionResult DeletePersonPhone([FromQuery] int businessEntityID, [FromQuery] int phoneNumberTypeID, [FromQuery] string phoneNumber)
         {
-            var response = _facadePhone.DeletePersonPhone(personId, typePhoneId, phoneNumber);
+            var response = _facadePhone.DeletePersonPhone(businessEntityID, phoneNumberTypeID, phoneNumber);
 
             return Response(response);
         }
 
-        [HttpPost]
-        public IActionResult SelectPersonPhone(PersonPhone request)
+        [HttpGet]
+        public IActionResult SelectPersonPhone([FromQuery] string phoneNumber)
         {
-            var response = _facadePhone.SelectPersonPhone(request);
+
+            var response = _facadePhone.SelectPersonPhone(phoneNumber);
+
+            return Response(response);
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult SelectAllPersonPhone()
+        {
+
+            var response = _facadePhone.SelectAllPersonPhone();
 
             return Response(response);
         }

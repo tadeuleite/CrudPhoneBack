@@ -82,15 +82,41 @@ namespace Examples.Charge.Infra.Data.Repositories
             }
         }
 
-        public List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request)
+        public List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhoneResponseDto request)
         {
             var data = (from phone in _context.PersonPhone
                         join person in _context.Person
                         on phone.BusinessEntityID equals person.BusinessEntityID
                         join phoneType in _context.PhoneNumberType
                         on phone.PhoneNumberTypeID equals phoneType.PhoneNumberTypeID
-                        where phone.BusinessEntityID == request.BusinessEntityID
-                        select new PersonPhoneResponseDto { PersonName = person.Name, PhoneNumber = phone.PhoneNumber, PhoneType = phoneType.Name }).ToList();
+                        where phone.PhoneNumber.Contains(request.PhoneNumber)
+                        select new PersonPhoneResponseDto
+                        {
+                            PersonName = person.Name,
+                            BusinessEntityID = person.BusinessEntityID,
+                            PhoneNumber = phone.PhoneNumber,
+                            PhoneNumberTypeID = phoneType.PhoneNumberTypeID,
+                            PhoneType = phoneType.Name
+                        }).ToList();
+
+            return data;
+        }
+
+        public List<PersonPhoneResponseDto> SelectAllPersonPhone()
+        {
+            var data = (from phone in _context.PersonPhone
+                        join person in _context.Person
+                        on phone.BusinessEntityID equals person.BusinessEntityID
+                        join phoneType in _context.PhoneNumberType
+                        on phone.PhoneNumberTypeID equals phoneType.PhoneNumberTypeID
+                        select new PersonPhoneResponseDto
+                        {
+                            PersonName = person.Name,
+                            BusinessEntityID = person.BusinessEntityID,
+                            PhoneNumber = phone.PhoneNumber,
+                            PhoneNumberTypeID = phoneType.PhoneNumberTypeID,
+                            PhoneType = phoneType.Name
+                        }).ToList();
 
             return data;
         }

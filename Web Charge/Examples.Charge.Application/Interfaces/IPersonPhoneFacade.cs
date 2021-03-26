@@ -5,9 +5,10 @@ namespace Examples.Charge.Application.Interfaces
 {
     public interface IPersonPhoneFacade
     {
-        PersonPhoneResponse InsertPersonPhone(PersonPhone request);
-        PersonPhoneResponse UpdatePersonPhone(int personId, int typePhoneId, string oldPhone, string newPhoneNumber);
+        PersonPhoneResponse InsertPersonPhone(PersonPhoneResponseDto request);
+        PersonPhoneResponse UpdatePersonPhone(PersonPhoneResponseDto request, string newPhoneNumber);
         PersonPhoneResponse DeletePersonPhone(int personId, int typePhoneId, string phoneNumber);
-        PersonPhoneResponse SelectPersonPhone(PersonPhone request);
+        PersonPhoneResponse SelectPersonPhone(string phoneNumber);
+        PersonPhoneResponse SelectAllPersonPhone();
     }
 }

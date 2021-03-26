@@ -17,6 +17,8 @@ namespace Examples.Charge.Domain.Aggregates.PersonAggregate
 
         public bool DeletePersonPhone(PersonPhone request) => _personPhoneRepository.DeletePersonPhone(request);
 
-        public List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request) => _personPhoneRepository.SelectPersonPhone(request);
+        public List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhoneResponseDto request) => _personPhoneRepository.SelectPersonPhone(request);
+
+        public List<PersonPhoneResponseDto> SelectAllPersonPhone() => _personPhoneRepository.SelectAllPersonPhone();
     }
 }

@@ -20,8 +20,15 @@ namespace Examples.Charge.Application.Facade
             _mapper = mapper;
         }
 
-        public PersonPhoneResponse InsertPersonPhone(PersonPhone request)
+        public PersonPhoneResponse InsertPersonPhone(PersonPhoneResponseDto objReq)
         {
+            var request = new PersonPhone()
+            {
+                BusinessEntityID = objReq.BusinessEntityID,
+                PhoneNumber = objReq.PhoneNumber,
+                PhoneNumberTypeID = objReq.PhoneNumberTypeID
+            };
+
             var response = new PersonPhoneResponse();
             try
             {
@@ -37,13 +44,13 @@ namespace Examples.Charge.Application.Facade
             return response;
         }
 
-        public PersonPhoneResponse UpdatePersonPhone(int personId, int typePhoneId, string oldPhone, string newPhoneNumber)
+        public PersonPhoneResponse UpdatePersonPhone(PersonPhoneResponseDto objReq, string newPhoneNumber)
         {
             var request = new PersonPhone()
             {
-                BusinessEntityID = personId,
-                PhoneNumber = oldPhone,
-                PhoneNumberTypeID = typePhoneId
+                BusinessEntityID = objReq.BusinessEntityID,
+                PhoneNumber = objReq.PhoneNumber,
+                PhoneNumberTypeID = objReq.PhoneNumberTypeID,
             };
 
             var response = new PersonPhoneResponse();
@@ -85,12 +92,35 @@ namespace Examples.Charge.Application.Facade
             return response;
         }
 
-        public PersonPhoneResponse SelectPersonPhone(PersonPhone request)
+        public PersonPhoneResponse SelectPersonPhone(string phoneNumber)
         {
+            var request = new PersonPhoneResponseDto()
+            {
+                PhoneNumber = phoneNumber,
+            };
+
             var response = new PersonPhoneResponse();
             try
             {
                 var result = _personPhoneService.SelectPersonPhone(request);
+                response.Success = true;
+                response.PersonObjects = result;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Errors.Add(ex);
+            }
+
+            return response;
+        }
+
+        public PersonPhoneResponse SelectAllPersonPhone()
+        {
+            var response = new PersonPhoneResponse();
+            try
+            {
+                var result = _personPhoneService.SelectAllPersonPhone();
                 response.Success = true;
                 response.PersonObjects = result;
             }

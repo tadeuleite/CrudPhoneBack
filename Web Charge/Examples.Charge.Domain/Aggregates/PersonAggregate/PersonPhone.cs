@@ -15,6 +15,10 @@
 
     public class PersonPhoneResponseDto
     {
+        public int BusinessEntityID { get; set; }
+
+        public int PhoneNumberTypeID { get; set; }
+
         public string PersonName { get; set; }
 
         public string PhoneNumber { get; set; }

@@ -8,6 +8,7 @@ namespace Examples.Charge.Domain.Aggregates.PersonAggregate.Interfaces
         bool InsertPersonPhone(PersonPhone request, IDbContextTransaction transaction = null);
         bool UpdatePersonPhone(PersonPhone request, string newPhoneNumber, IDbContextTransaction transaction = null);
         bool DeletePersonPhone(PersonPhone request, IDbContextTransaction transaction = null);
-        List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request);
+        List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhoneResponseDto request);
+        List<PersonPhoneResponseDto> SelectAllPersonPhone();
     }
 }
