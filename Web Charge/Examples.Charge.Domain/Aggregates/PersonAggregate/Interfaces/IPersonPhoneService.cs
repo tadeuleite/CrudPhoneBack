@@ -1,10 +1,13 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Text;
 
 namespace Examples.Charge.Domain.Aggregates.PersonAggregate.Interfaces
 {
     public interface IPersonPhoneService
     {
+        bool InsertPersonPhone(PersonPhone request);
+        bool UpdatePersonPhone(PersonPhone request, string newPhoneNumber);
+        bool DeletePersonPhone(PersonPhone request);
+        List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request);
     }
 }

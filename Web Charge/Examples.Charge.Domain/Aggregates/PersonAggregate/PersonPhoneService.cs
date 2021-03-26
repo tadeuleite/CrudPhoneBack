@@ -1,7 +1,5 @@
 ﻿using Examples.Charge.Domain.Aggregates.PersonAggregate.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Examples.Charge.Domain.Aggregates.PersonAggregate
 {
@@ -13,6 +11,12 @@ namespace Examples.Charge.Domain.Aggregates.PersonAggregate
             _personPhoneRepository = personPhoneRepository;
         }
 
-        public async Task<List<PersonPhone>> FindAllAsync() => (await _personPhoneRepository.FindAllAsync()).ToList();
+        public bool InsertPersonPhone(PersonPhone request) => _personPhoneRepository.InsertPersonPhone(request);
+
+        public bool UpdatePersonPhone(PersonPhone request, string newPhoneNumber) => _personPhoneRepository.UpdatePersonPhone(request, newPhoneNumber);
+
+        public bool DeletePersonPhone(PersonPhone request) => _personPhoneRepository.DeletePersonPhone(request);
+
+        public List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request) => _personPhoneRepository.SelectPersonPhone(request);
     }
 }

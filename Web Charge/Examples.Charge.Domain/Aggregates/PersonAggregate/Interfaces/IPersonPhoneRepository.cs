@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examples.Charge.Domain.Aggregates.PersonAggregate.Interfaces
 {
     public interface IPersonPhoneRepository
     {
-        Task<IEnumerable<PersonAggregate.PersonPhone>> FindAllAsync();
+        bool InsertPersonPhone(PersonPhone request, IDbContextTransaction transaction = null);
+        bool UpdatePersonPhone(PersonPhone request, string newPhoneNumber, IDbContextTransaction transaction = null);
+        bool DeletePersonPhone(PersonPhone request, IDbContextTransaction transaction = null);
+        List<PersonPhoneResponseDto> SelectPersonPhone(PersonPhone request);
     }
 }

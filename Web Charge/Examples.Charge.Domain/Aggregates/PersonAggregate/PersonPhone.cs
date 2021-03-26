@@ -1,10 +1,4 @@
-﻿using Abp.Domain.Entities;
-using Abp.Events.Bus;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Examples.Charge.Domain.Aggregates.PersonAggregate
+﻿namespace Examples.Charge.Domain.Aggregates.PersonAggregate
 {
     public class PersonPhone
     {
@@ -17,7 +11,14 @@ namespace Examples.Charge.Domain.Aggregates.PersonAggregate
         public Person Person { get; set; }
 
         public PhoneNumberType PhoneNumberType { get; set; }
+    }
 
-        public ICollection<IEventData> DomainEvents => throw new NotImplementedException();
+    public class PersonPhoneResponseDto
+    {
+        public string PersonName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string PhoneType { get; set; }
     }
 }

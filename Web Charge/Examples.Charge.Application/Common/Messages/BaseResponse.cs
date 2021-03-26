@@ -6,6 +6,11 @@ namespace Examples.Charge.Application.Common.Messages
     {
         public bool Success { get; set; } = true;
 
-        public IEnumerable<object> Errors { get; set; } = null;
+        public List<object> Errors { get; set; } = null;
+
+        public BaseResponse()
+        {
+            Errors = new List<object>();
+        }
     }
 }
